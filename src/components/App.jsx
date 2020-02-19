@@ -5,7 +5,7 @@ import PostFeed from './Posts/PostFeed';
 
 export default function App() {
     return (
-        <div>
+        <div style={{ backgroundColor: '#fafafa' }}>
             <PostFeed />
         </div>
     );

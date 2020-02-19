@@ -5,7 +5,14 @@ import Post from './Post.jsx';
 
 export default function PostList(props) {
     return (
-        <div>
+        <div
+            style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                padding: '1rem',
+                gridGap: '2rem',
+            }}
+        >
             {props.allPosts.map(post => {
                 return <Post {...post} key={post.id} />;
             })}
@@ -18,7 +25,9 @@ PostList.propTypes = {
         PropTypes.shape({
             title: PropTypes.string,
             image: PropTypes.string,
+            description: PropTypes.string,
             id: PropTypes.string,
+            rating: PropTypes.number,
         })
     ),
 };

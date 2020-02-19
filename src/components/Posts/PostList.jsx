@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import Post from './Post.jsx';
+import Post from './Post';
 
 export default function PostList(props) {
     return (
@@ -19,15 +17,3 @@ export default function PostList(props) {
         </div>
     );
 }
-
-PostList.propTypes = {
-    allPosts: PropTypes.arrayOf(
-        PropTypes.shape({
-            title: PropTypes.string,
-            image: PropTypes.string,
-            description: PropTypes.string,
-            id: PropTypes.string,
-            rating: PropTypes.number,
-        })
-    ),
-};

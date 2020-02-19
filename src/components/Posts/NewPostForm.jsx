@@ -1,23 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { v4 as getUUID } from 'uuid';
 import { Input, Typography, Form, Button } from 'antd';
 
 const { TextArea } = Input;
 
 export default function NewPostForm(props) {
-    const postInputs = {};
+    const [title, setTitle] = useState('');
+    const [image, setImage] = useState('');
+    const [description, setDescription] = useState('');
+
     function handleFormSubmit(e) {
         e.preventDefault();
-        const newRat = {};
-        for (const key in postInputs) {
-            newRat[key] = postInputs[key].state.value;
-            postInputs[key].state.value = '';
-        }
-        newRat.id = getUUID();
-        newRat.rating = 0;
+
+        const newRat = {
+            id: getUUID(),
+            rating: 0,
+            title,
+            image,
+            description,
+        };
+
         props.onNewPostSubmission(newRat);
+
+        setTitle('');
+        setImage('');
+        setDescription('');
     }
+
     return (
         <div
             style={{
@@ -38,26 +47,23 @@ export default function NewPostForm(props) {
                 <Form.Item>
                     <Input
                         placeholder="Title of this Rat"
-                        ref={input => {
-                            postInputs.title = input;
-                        }}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                 </Form.Item>
                 <Form.Item>
                     <Input
                         placeholder="Image UR(at)L"
-                        ref={input => {
-                            postInputs.image = input;
-                        }}
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
                     />
                 </Form.Item>
                 <Form.Item>
                     <TextArea
                         placeholder="Tell us about this rat"
                         rows={3}
-                        ref={textarea => {
-                            postInputs.description = textarea;
-                        }}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                 </Form.Item>
                 <Form.Item>
@@ -69,7 +75,3 @@ export default function NewPostForm(props) {
         </div>
     );
 }
-
-NewPostForm.propTypes = {
-    onNewPostSubmission: PropTypes.func,
-};

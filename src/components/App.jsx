@@ -1,12 +1,12 @@
 import React from 'react';
-import PostFeed from './Posts/PostFeed';
+import Posts from './Posts';
 // import { Layout } from 'antd';
 // const { Header, Content, Sider } = Layout;
 
 export default function App() {
     return (
         <div style={{ backgroundColor: '#fafafa' }}>
-            <PostFeed />
+            <Posts />
         </div>
     );
 }

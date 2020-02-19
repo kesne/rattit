@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Card, Button, Icon, Typography } from 'antd';
-import PropTypes from 'prop-types';
 
 const styles = {
     voteDiv: {
@@ -30,11 +29,21 @@ const styles = {
         boxShadow: '0 2px 0 rgba(0, 0, 0, 0.015)',
     },
 };
+
 export default function Post(props) {
     let [interaction, setInteraction] = useState(0);
+
     function handleInteraction(value) {
-        setInteraction(interaction === value ? 0 : value);
+        setInteraction(current => current === value ? 0 : value);
     }
+
+    const like = useCallback(() => {
+        handleInteraction(1);
+    }, []);
+
+    const dislike = useCallback(() => {
+        handleInteraction(-1);
+    }, []);
 
     return (
         <Card
@@ -56,9 +65,7 @@ export default function Post(props) {
             <h1>{props.title}</h1>
             <div style={styles.voteDiv}>
                 <Button
-                    onClick={() => {
-                        handleInteraction(1);
-                    }}
+                    onClick={like}
                     style={styles.voteButton}
                 >
                     <Icon type="smile" style={styles.icon} />
@@ -67,9 +74,7 @@ export default function Post(props) {
                     {props.rating + interaction}
                 </Typography.Title>
                 <Button
-                    onClick={() => {
-                        handleInteraction(-1);
-                    }}
+                    onClick={dislike}
                     style={styles.voteButton}
                 >
                     <Icon type="frown" style={styles.icon} />
@@ -78,10 +83,3 @@ export default function Post(props) {
         </Card>
     );
 }
-
-Post.propTypes = PropTypes.shape({
-    title: PropTypes.string,
-    image: PropTypes.string,
-    id: PropTypes.string,
-    rating: PropTypes.number,
-});

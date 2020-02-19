@@ -1,20 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Button } from 'antd';
 
-export default function SortButton(props) {
+const StyledButton = styled(Button)`
+    display: block;
+    margin: 0 auto;
+`;
+
+export default function SortButton({ onChangeSortOrder }) {
     return (
         <div>
-            <Button
-                onClick={props.onChangeSortOrder}
-                style={{ display: 'block', margin: '0 auto' }}
-            >
-                Sort
-            </Button>
+            <StyledButton onClick={onChangeSortOrder}>Sort</StyledButton>
         </div>
     );
 }
-
-SortButton.propTypes = {
-    onChangeSortOrder: PropTypes.func,
-};
